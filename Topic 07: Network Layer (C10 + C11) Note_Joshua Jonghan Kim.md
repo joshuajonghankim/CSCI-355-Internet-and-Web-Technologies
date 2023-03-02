@@ -60,4 +60,4 @@ Use this to send a message to 'network' itself.
 All the host bits are 1s. (64.31.255.255/13)
 it sends messages to all the hosts in the network.
 
-dd
+How many devices does the network
