@@ -2,8 +2,8 @@ IP Address: provides us a way to identify networks and devices connected to thes
 
 MAC Address Limitations : no organizational system
 
-
 # IPv4 (32 bits)
+
 0-255.0-255.0-255.0-255
 ex) 6.4.240.111
 
@@ -12,20 +12,23 @@ ex) 6.4.240.111
 IPv4 : USA
 IPv6 : Everywhere else
 most IPv4 are reserved to US.
+IPv4 Address Exhaustion Problem
 
-# History (not used)
-# classful IPv4 Addressing
+# History  
+# classful IPv4 Addressing (not used nowadays)
 
 https://venus.cs.qc.cuny.edu/~rlaw/cs355/lectures/07-network-layer/images/class.png
 
 Class A: (1 octet for network, 3 octets for host)
-Allowed for (224 - 2) or 16,777,214 devices per network
-Identified by first octet in the range 0-126
+2^24 = 16M devices
+first octet in the range 0-126
 
 Class B: (2 octet for network 2 octets for host)
-Allowed for (216 - 2) or 65,534 devices per network
-Identified by first octet in the range 128-191
+2^16 = 65k devices
+first octet in the range 128-191
 
 Class C: (3 octet for network, 1 octet for host)
-Allowed for (28 - 2) or 254 hosts
-Identified by first octet in the range 192-223
+2^8 = 254 hosts
+first octet in the range 192-223
+
+# CIDR - Classless Interdomain Routing
