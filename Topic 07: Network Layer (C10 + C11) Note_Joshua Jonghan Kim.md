@@ -72,3 +72,10 @@ Data link layer header changes.
 The header have at least 5 rows and each row has 32 bits.
 Options are optional.
 If IHL is larger than 20bytes (5 * 4bytes), it has options.
+
+Entire 2nd row is not used today. We don't have to divide informations to send nowadays.
+
+TTL - Time to Live (8bit) 
+How many router hops a datagram can traverser before it's discarded. (Used to prevent loops when there is a misconfigured router) The default TTL is 64.
+
+
