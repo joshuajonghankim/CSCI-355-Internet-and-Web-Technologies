@@ -32,7 +32,16 @@ Class C: (3 octet for network, 1 octet for host)
 first octet in the range 192-223
 
 # CIDR - Classless Interdomain Routing (used today)
-8.5.0.0/16
-/16 = subnet identifier (subnet mask)
-= how much bits are used for network portion.
-= 8.5 is for network.
+8.5.0.0/16 (/16 = subnet identifier (subnet mask))
+= 00001000.00000101.00000000.00000000
+= 16 bits are for network portion (00001000.00000101)
+
+I want to change the IP address!
+
+16.4.0.0/15
+= 00010000.00000100.00000000.00000000
+= 15 bits for network (00010000.0000010)
+the rest is for host.
+
+__In this case, decimal notation is not good anymore.
+See, 16.4.255.10 and 16.5.11.2 are for same network!__
