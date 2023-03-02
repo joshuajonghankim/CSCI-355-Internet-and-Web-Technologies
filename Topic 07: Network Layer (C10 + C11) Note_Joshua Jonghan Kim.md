@@ -60,4 +60,15 @@ Use this to send a message to 'network' itself.
 All the host bits are 1s. (64.31.255.255/13)
 it sends messages to all the hosts in the network.
 
-How many devices does the network
+Q. How many devices does the network 64.8.0.0/15 support?
+2^(32-15) - 2
+=2^(32 - subID) - 2
+why -2? we need to exclude special CIDR Addresses.
+
+## IP Packet Structure
+
+Most parts of Network layer header doesn't during hups.
+Data link layer header changes.
+The header have at least 5 rows and each row has 32 bits.
+Options are optional.
+If IHL is larger than 20bytes (5 * 4bytes), it has options.
