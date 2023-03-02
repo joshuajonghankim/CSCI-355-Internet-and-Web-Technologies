@@ -31,4 +31,8 @@ Class C: (3 octet for network, 1 octet for host)
 2^8 = 254 hosts
 first octet in the range 192-223
 
-# CIDR - Classless Interdomain Routing
+# CIDR - Classless Interdomain Routing (used today)
+8.5.0.0/16
+/16 = subnet identifier (subnet mask)
+= how much bits are used for network portion.
+= 8.5 is for network.
