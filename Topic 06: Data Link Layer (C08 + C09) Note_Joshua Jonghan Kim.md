@@ -1,74 +1,90 @@
 # Topic 06: Data Link Layer (C08 + C09) Note_Joshua Jonghan Kim
-IP Address: provides us a way to identify networks and devices connected to these networks.
+Delivery of messages between directly connected adjacent nodes
+wireless, fiber, copper has different protocol, so each requires different headers
 
-MAC Address Limitations : no organizational system
+—-DLL(Wifi)----
+dest MAC = R1 //changes into R2 or R3 or destination or etc.
+—-Network Layer----
+destination IP : 1.2.3.4
+—-Transport Layer----
+dest app = web server
+—-message----
+“Hello World”
 
-## IPv4 (32 bits)
+Network Layer
+Logical Link Control //DLL
+Media Access Control //DLL
+Physical Layer
 
-0-255.0-255.0-255.0-255
-ex) 6.4.240.111
+LLC
+1. receives IP packet from network layers
+2. chooses which outbound connection to use
+3. Atlach the matching DLL header before sending to MAC
 
-2^32 = 2.1 billion (not many)
+MAC address(6 bytes)
+globally unique identifier for a network card
 
-IPv4 : USA
-IPv6 : Everywhere else
-most IPv4 are reserved to US.
-IPv4 Address Exhaustion Problem
+IEEE
 
-## History  
-## classful IPv4 Addressing (not used nowadays)
+3bytes OUI, 3bytes NIC
+7c:A2:04 is for INTEL.
+Each device of INTEL has a different NIC.
 
-https://venus.cs.qc.cuny.edu/~rlaw/cs355/lectures/07-network-layer/images/class.png
 
-Class A: (1 octet for network, 3 octets for host)
-2^24 = 16M devices
-first octet in the range 0-126
 
-Class B: (2 octet for network 2 octets for host)
-2^16 = 65k devices
-first octet in the range 128-191
 
-Class C: (3 octet for network, 1 octet for host)
-2^8 = 254 hosts
-first octet in the range 192-223
+A –-wifi— R1 —cable— R2 —cable— R3 —wifi— D
+4 hops
+header is changed at each hop. wifi or ethernet or … and MAC also changes.
 
-## CIDR - Classless Interdomain Routing (used today)
-8.5.0.0/16 (/16 = subnet identifier (subnet mask))
-= 00001000.00000101.00000000.00000000
-= 16 bits are for network portion (00001000.00000101)
+A—ㄱ
+B——S1—cable— R1 —cable— R2 —cable— R3 —wifi— D
+C—
+How many DLL hops?
+just 4! Switch is just a cable!
 
-I want to change the IP address!
+What is the job of HUB and Switch?
+act as a n-dimensional cable.
+Hub has a collision problem, but the switch has no such problems.
+Switch : a passive device that acts as n-dimensional cable. to allow multiple connected devices to form a local area network.
 
-16.4.0.0/15
-= 00010000.00000100.00000000.00000000
-= 15 bits for network (00010000.0000010)
-the rest is for host.
+Switch Device Discovery Algorithm
+1. Upon receiving a new frame, record the Src MAC Address and the incoming port# to the FIB(forwarding information base).
 
-__In this case, decimal notation is not good anymore.
-See, 16.4.255.10 and 16.5.11.2 are for same network!__
+Switch has a memory and it has a 3-column table. (MAC, Port#, Expiration)
+MAC Port# Expiration
+A	P1	3/1/2024
+C	P2 	3/12024
 
-Q. is 64.31.0.250 a part of the network of 64.24.0.0/13 ?
-01000000.00011 111.00000000.11111010
-01000000.00011 000.00000000.00000000
-therefore, they belong to the same network.
+2. Check FIB for Destination MAC 
+if found 
+forward it on the matching port#
+else : revert to hub mode: Flood Message on ALL Other(not through input port) ports. (one MAC has only one Port#, but one Port# can has multiple MACs.)
+When A->D, it reverts to hub mode.
 
-## Special CIDR Address
-1. Network Address
-All the host bits are 0s. (64.24.0.0/13)
-Use this to send a message to 'network' itself.
-2. Broadcast Address
-All the host bits are 1s. (64.31.255.255/13)
-it sends messages to all the hosts in the network.
+Ethernet Header Format
 
-Q. How many devices does the network 64.8.0.0/15 support?
-2^(32-15) - 2
-=2^(32 - subID) - 2
-why -2? we need to exclude special CIDR Addresses.
+CRC: Cyclic redundancy check
 
-## IP Packet Structure
+FCS : Frame Check Sequence
+= data integrity algorithm which uses CRC32
 
-Most parts of Network layer header doesn't during hups.
-Data link layer header changes.
-The header have at least 5 rows and each row has 32 bits.
-Options are optional.
-If IHL is larger than 20bytes (5 * 4bytes), it has options.
+Ethernet: data frame
+
+Wifi:
+-management frame
+-control frame
+-data frame
+
+Management Frame
+assists in connecting and disconnecting devices
+-beacon : SSID, transfer rate, encryption
+-Probes : automatically connect next time
+-Authentication: credentials
+-Association: 
+
+Control: Assists in the delivery of messages and are necessary due to the half duplex nature of Wi-Fi
+-ACKs: reply when receive
+-Block-ACKS: reply for multiple input
+-RTS/CTS: to avoid collision in wireless environment
+
